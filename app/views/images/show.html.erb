@@ -1,0 +1,47 @@
+<p>
+    <strong>Title:</strong>
+    <%= @image.title %>
+</p>
+<p>
+    <strong>description:</strong>
+    <%= @image.description %>
+</p>
+<p>
+    <strong>image:</strong>
+    <img src ="<%= @image.image %>">
+</p>
+
+<h3>Comments</h3>
+<% @image.comments.each do |comment| %>
+<p>
+    <strong>Commenter:</strong>
+    <%= comment.commenter %>
+</p>
+<p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+</p>
+<p>
+    <%= link_to 'Destroy Comment', [comment.image, comment],
+        method: :delete,
+        data: { confirm: 'Are you sure?' } %>
+</p>
+<% end %>
+
+<h3>Add a comment:</h3>
+<%= form_for([@image, @image.comments.build]) do |f| %>
+<p>
+    <%= f.label :commenter %><br>
+    <%= f.text_field :commenter %>
+</p>
+<p>
+    <%= f.label :comment %><br>
+    <%= f.text_area :body %>
+</p>
+<p>
+    <%= f.submit %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', edit_image_path(@image) %>
+<%= link_to 'Back', images_path %>
